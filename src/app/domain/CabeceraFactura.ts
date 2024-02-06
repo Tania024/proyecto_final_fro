@@ -2,8 +2,6 @@ import { DetalleFactura } from "./DetalleFactura";
 import { Cliente } from "./Cliente";
 
 
-
-
 export class CabeceraFactura {
     private cab_codigo?: number;
     private cab_fecha?: Date;
@@ -13,5 +11,6 @@ export class CabeceraFactura {
 
     private cliente?: Cliente;
     private detalles?: DetalleFactura[];
+
 }
 

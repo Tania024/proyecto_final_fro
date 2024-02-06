@@ -1,4 +1,22 @@
 <div class="logo-container">
-    <img src="assets/portada.jpeg" alt="Logo de la aplicación">
+    <img src="assets/portada.jpeg" alt="Tienda de Ropa">
     <div class="logo-text">Productos</div>
 </div>
+
+<div *ngIf="productos.length > 0; else noProductos">
+    <div class="product-list">
+        <div *ngFor="let producto of productos" class="product-item">
+            <img [src]="producto.pro_imagen" alt="{{ producto.pro_nombre }}" class="product-image">
+            <div class="product-details">
+                <div class="product-name">{{ producto.pro_nombre }}</div>
+                <div class="product-stock">Stock: {{ producto.pro_stock }}</div>
+                <div class="product-price">{{ producto.pro_precio | currency:'USD':'symbol':'1.2-2' }}</div>
+                <button (click)="agregarAlCarrito(producto)">Agregar al carrito</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #noProductos>
+    <p>No hay productos registrados.</p>
+</ng-template>

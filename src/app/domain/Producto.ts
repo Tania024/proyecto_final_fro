@@ -1,14 +1,13 @@
 import { DetalleFactura } from "./DetalleFactura";
 
-
 export class Producto {
-    private pro_codigo?: number;
-    private pro_fecha_registro?: Date;
-    private pro_nombre?: string;
-    private pro_stock?: number;
-    private pro_imagen?: string;
-    private pro_precio?: number;
-    private pro_iva?: number;
+    public pro_codigo?: number;
+    public pro_fecha_registro?: Date;
+    public pro_nombre?: string;
+    public pro_stock?: number;
+    public pro_imagen?: string;
+    public pro_precio?: number;
+    public pro_iva?: number;
 
-    private detallesFactura?: DetalleFactura[];
+    public detallesFactura?: DetalleFactura[];
 }
