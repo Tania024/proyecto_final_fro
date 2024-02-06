@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    
+</head>
+<body>
+    <div class="logo-container">
+        <img src="assets/imagen.jpeg" alt="Logo de la aplicación">
+    </div>
+    <div id="login-container">
+        <h1>Iniciar Sesión</h1>
+        <div id="register-link">
+            <p>¿No tienes una cuenta? <a routerLink="/registrarse">Registrarse</a></p>
+        </div>
+        <form id="login-form" (ngSubmit)="iniciarSesion()">
+                <label for="login-usuario">Usuario:</label>
+                <input type="text" id="login-usuario" name="login-usuario" required [(ngModel)]="usuario">
+            
+                <label for="login-contrasena">Contraseña:</label>
+                <input type="password" id="login-contrasena" name="login-contrasena" required [(ngModel)]="contrasena">
+            <button type="submit">Iniciar Sesión</button>
+
+        </form>  
+    </div>
+      
+</body>
+</html>
+
+
+

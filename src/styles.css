@@ -1,1 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+    background-color: #DCC4C4; /* Cambia este color al que desees */
+    font-family: 'Georgia', serif;
+  
+  }

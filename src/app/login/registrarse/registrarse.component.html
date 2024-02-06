@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrarse</title>
+</head>
+<body>
+    <div class="logo-container">
+        <img src="assets/imagen.jpeg" alt="Logo de la aplicación">
+    </div>
+
+    <div id="inicio-container">
+        <h1>Registrarse</h1>
+        <div id="inicio-link">
+            <p>¿Ya tienes tu cuenta? <a routerLink="/iniciarSesion">Inicia Sesión</a></p>
+        </div>
+        <form id="inicio-form">
+            <label for="reg-cedula">Cédula:</label>
+            <input type="text" id="reg-cedula" name="reg-cedula" required>
+
+            <label for="reg-nombre">Nombre:</label>
+            <input type="text" id="reg-nombre" name="reg-nombre" required>
+
+            <label for="reg-apellido">Apellido:</label>
+            <input type="text" id="reg-apellido" name="reg-apellido" required>
+
+            <label for="reg-direccion">Dirección:</label>
+            <input type="text" id="reg-direccion" name="reg-direccion">
+
+            <label for="reg-telefono">Teléfono:</label>
+            <input type="text" id="reg-telefono" name="reg-telefono">
+
+            <label for="reg-usuario">Usuario:</label>
+            <input type="text" id="reg-usuario" name="reg-usuario" required>
+
+            <label for="reg-contrasena">Contraseña:</label>
+            <input type="password" id="reg-contrasena" name="reg-contrasena" required>
+
+            <button type="submit">Registrarse</button>
+        </form>
+    </div>
+
+   
+</body>
+</html>

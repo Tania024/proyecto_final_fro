@@ -1,0 +1,14 @@
+/* styles.css o el archivo de estilos del componente */
+/* styles.css o el archivo de estilos del componente */
+.container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .menu {
+    margin-bottom: -40px; /* Ajusta el valor según tus necesidades */
+    margin-top: -25px;
+  }
+  
+
+  
