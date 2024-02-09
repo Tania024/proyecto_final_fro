@@ -11,7 +11,13 @@
                 <div class="product-name">{{ producto.pro_nombre }}</div>
                 <div class="product-stock">Stock: {{ producto.pro_stock }}</div>
                 <div class="product-price">{{ producto.pro_precio | currency:'USD':'symbol':'1.2-2' }}</div>
-                <button (click)="agregarAlCarrito(producto)">Agregar al carrito</button>
+                
+                <!-- Formulario para la cantidad y botón "Agregar al Carrito" -->
+                <form (ngSubmit)="agregarAlCarrito(producto)">
+                    <label for="cantidad">Cantidad:</label>
+                    <input type="number" id="cantidad" name="cantidad" [(ngModel)]="cantidadInput" required>
+                    <button type="submit">Agregar al Carrito</button>
+                </form>
             </div>
         </div>
     </div>

@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Cliente } from '../domain/Cliente';
 import { Observable } from 'rxjs';
+import { Cliente } from '../domain/Cliente';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClienteService {
   private baseUrl = 'http://localhost:8080/proyecto_final/rs/clientes';
+  private clienteActual: Cliente | null = null;
 
   constructor(private httpClient: HttpClient) {}
 
@@ -29,5 +30,13 @@ export class ClienteService {
 
   getClientes(): Observable<Cliente[]> {
     return this.httpClient.get<Cliente[]>(`${this.baseUrl}/list`);
+  }
+
+  setClienteActual(cliente: Cliente): void {
+    this.clienteActual = cliente;
+  }
+
+  getClienteActual(): Cliente | null {
+    return this.clienteActual;
   }
 }

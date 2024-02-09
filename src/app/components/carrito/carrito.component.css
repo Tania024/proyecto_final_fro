@@ -22,6 +22,54 @@
     text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8); /* Ajusta según sea necesario */
     font-family: 'Caveat', cursive;
   }
+
+  .table-container {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+  }
   
+  .table-header {
+    display: flex;
+    background-color: #f0f0f0;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+  }
   
+  .table-cell {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+  }
   
+  .table-row {
+    display: flex;
+    border-bottom: 1px solid #ccc;
+  
+    img {
+      max-width: 50px;
+      max-height: 50px;
+      margin-right: 10px;
+    }
+  }
+  
+  .table-row:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .no-detalle-message {
+    text-align: center;
+    font-style: italic;
+    margin-top: 20px;
+  }
+  
+  .eliminar-button {
+    cursor: pointer;
+    color: #ff0000;
+  }
+  
+  .eliminar-button:hover {
+    text-decoration: underline;
+  }

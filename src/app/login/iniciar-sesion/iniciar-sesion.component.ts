@@ -22,7 +22,9 @@ export class IniciarSesionComponent implements OnInit {
       .subscribe(
         (cliente: Cliente) => {
           if (cliente && cliente.cli_contrasena === this.contrasena) {
-             this.router.navigate(['components/inicio']);
+            // Almacena el cliente actual en el servicio
+            this.clienteService.setClienteActual(cliente);
+            this.router.navigate(['components/inicio']);
           } else {
             console.error('Credenciales incorrectas');
             alert('Credenciales incorrectas');

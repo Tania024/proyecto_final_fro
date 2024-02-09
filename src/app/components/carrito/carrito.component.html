@@ -1,4 +1,34 @@
+<!-- carrito.component.html -->
 <div class="logo-container">
     <img src="assets/portada.jpeg" alt="Logo de la aplicación">
     <div class="logo-text">Carrito</div>
 </div>
+
+<div class="table-container">
+    <div class="table-header">
+        <div class="table-cell">Código</div>
+        <div class="table-cell">Cantidad</div>
+        <div class="table-cell">Producto</div>
+        <div class="table-cell">Precio Unitario</div>
+        <div class="table-cell">Subtotal</div>
+        <div class="table-cell">Eliminar</div>
+    </div>
+
+    <div *ngFor="let detalle of detallesFactura" class="table-row">
+        <div class="table-cell">{{ detalle?.det_codigo !== undefined ? detalle.det_codigo : '' }}</div>
+        <div class="table-cell">{{ detalle?.det_cantidad || '' }}</div>
+
+        <div class="table-cell">
+            <ng-container *ngIf="detalle?.producto">
+                <img *ngIf="detalle.producto?.pro_imagen" [src]="detalle.producto?.pro_imagen" alt="Imagen del producto">
+                {{ detalle.producto?.pro_nombre || 'Nombre no disponible' }}
+            </ng-container>
+        </div>
+
+        <div class="table-cell">{{ detalle?.det_precio | currency:'USD':'symbol':'1.2-2' || '' }}</div>
+        <div class="table-cell">{{ detalle?.det_subtotal | currency:'USD':'symbol':'1.2-2' || '' }}</div>
+        <div class="table-cell eliminar-button" (click)="eliminarDetalle(detalle?.det_codigo)">Eliminar</div>
+    </div>
+</div>
+
+<div *ngIf="detallesFactura.length === 0" class="no-detalle-message">No hay detalles de factura registrados.</div>
