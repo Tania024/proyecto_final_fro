@@ -30,4 +30,8 @@ export class CabecerafacturaService {
   obtenerTodasCabecerasFacturas(): Observable<CabeceraFactura[]> {
     return this.http.get<CabeceraFactura[]>(`${this.apiUrl}/list`);
   }
+
+  crearCabeceraConDetalles(cabeceraFactura: CabeceraFactura): Observable<CabeceraFactura> {
+    return this.http.post<CabeceraFactura>(`${this.apiUrl}/crear-con-detalles`, cabeceraFactura);
+  }
 }

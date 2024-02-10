@@ -1,8 +1,10 @@
+// carrito.component.ts
+
 import { Component, OnInit } from '@angular/core';
 import { DetalleFactura } from 'src/app/domain/DetalleFactura';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { DetallefacturaService } from 'src/app/services/detallefactura.service';
-import { catchError } from 'rxjs/operators';
+import { CabecerafacturaService } from 'src/app/services/cabecerafactura.service'; // Importa tu servicio de cabecera
 
 @Component({
   selector: 'app-carrito',
@@ -14,15 +16,34 @@ export class CarritoComponent implements OnInit {
 
   constructor(
     private detalleFacturaService: DetallefacturaService,
-    private clienteService: ClienteService
+    private clienteService: ClienteService,
+    private cabeceraFacturaService: CabecerafacturaService
   ) {}
 
   ngOnInit(): void {
-    // Obtener el cliente actual
+    this.cargarDetallesFactura();
+  }
+
+  eliminarDetalle(detalleId: number | undefined): void {
+    if (detalleId !== undefined) {
+      this.detalleFacturaService.eliminarDetalleFactura(detalleId).subscribe(
+        () => {
+          console.log('Detalle eliminado correctamente.');
+          this.actualizarDetalles();
+        },
+        (error) => {
+          console.error('Error al eliminar el detalle de factura:', error);
+        }
+      );
+    } else {
+      console.warn('Se intentó eliminar un detalle con ID undefined. Verifica tu lógica.');
+    }
+  }
+
+  private cargarDetallesFactura(): void {
     const cliente = this.clienteService.getClienteActual();
 
     if (cliente && cliente.cli_codigo !== undefined) {
-      // Cargar los detalles de la factura asociados al cliente logueado
       this.detalleFacturaService.obtenerDetallesFacturaPorCliente(cliente.cli_codigo)
         .subscribe(
           (detallesFactura) => {
@@ -37,45 +58,32 @@ export class CarritoComponent implements OnInit {
     }
   }
 
-  // carrito.component.ts
-
-  eliminarDetalle(detalleId: number | undefined): void {
-    if (detalleId !== undefined) {
-        this.detalleFacturaService.eliminarDetalleFactura(detalleId).subscribe(
-            (response: any) => {
-                // Verificar el cuerpo de la respuesta y manejar según sea necesario
-                if (response && response.status === 'OK') {
-                    console.log('Detalle eliminado correctamente.');
-                    this.actualizarDetalles();
-                } else {
-                    console.error('Error al eliminar el detalle de factura. Respuesta del servidor:', response);
-                }
-            },
-            (error) => {
-                console.error('Error al eliminar el detalle de factura:', error);
-            }
-        );
-    } else {
-        console.warn('Se intentó eliminar un detalle con ID undefined. Verifica tu lógica.');
-    }
-}
-
   private actualizarDetalles(): void {
-    // Obtener el cliente actual
+    this.cargarDetallesFactura();
+  }
+
+  pagar(): void {
     const cliente = this.clienteService.getClienteActual();
 
     if (cliente && cliente.cli_codigo !== undefined) {
-      // Llamar al servicio para obtener los detalles de factura actualizados
-      this.detalleFacturaService.obtenerDetallesFacturaPorCliente(cliente.cli_codigo)
-        .subscribe(
-          (detallesFactura) => {
-            this.detallesFactura = detallesFactura;
-            console.log('Detalles actualizados:', detallesFactura);
-          },
-          (error) => {
-            console.error('Error al obtener detalles de factura actualizados', error);
-          }
-        );
+      const nuevaCabecera = {
+        cab_fecha: new Date(),
+        cab_iva: 12,
+        cab_subtotal: 0,
+        cab_total: 0,
+        cliente: cliente,
+        detalles: this.detallesFactura
+      };
+
+      this.cabeceraFacturaService.crearCabeceraConDetalles(nuevaCabecera).subscribe(
+        (cabeceraCreada) => {
+          console.log('Cabecera creada correctamente:', cabeceraCreada);
+          this.actualizarDetalles();
+        },
+        (error) => {
+          console.error('Error al crear la cabecera:', error);
+        }
+      );
     } else {
       console.error('Error: Cliente no autenticado o código de cliente no disponible');
     }

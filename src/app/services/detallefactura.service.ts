@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { DetalleFactura } from '../domain/DetalleFactura';
 import { ClienteService } from './cliente.service';
 
@@ -21,7 +21,7 @@ export class DetallefacturaService {
   }
 
   eliminarDetalleFactura(detCodigo: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/elim/${detCodigo}`, { observe: 'response' });
+    return this.http.delete(`${this.apiUrl}/elim/${detCodigo}`);
   }
 
   obtenerDetalleFactura(detCodigo: number): Observable<DetalleFactura> {
@@ -35,4 +35,5 @@ export class DetallefacturaService {
   obtenerDetallesFacturaPorCliente(cliCodigo: number): Observable<DetalleFactura[]> {
     return this.http.get<DetalleFactura[]>(`${this.apiUrl}/cliente/${cliCodigo}`);
   }
+  
 }

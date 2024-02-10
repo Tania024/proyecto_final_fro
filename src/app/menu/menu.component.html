@@ -1,3 +1,4 @@
+<!-- menu.component.html -->
 <!DOCTYPE html>
 <html lang="es">
 <body>
@@ -10,6 +11,8 @@
             <a href="#" routerLink="components/inicio">Inicio</a>
             <a href="#" routerLink="components/producto">Producto</a>
             <a href="#" routerLink="components/detalle-factura">Carrito</a>
+            <!-- <a href="#" [routerLink]="productoHabilitado ? 'components/producto' : ''" [ngClass]="{ 'disabled': !productoHabilitado }">Producto</a>
+            <a href="#" [routerLink]="carritoHabilitado ? 'components/detalle-factura' : ''" [ngClass]="{ 'disabled': !carritoHabilitado }">Carrito</a> -->
         </nav>
     </div>
 </body>

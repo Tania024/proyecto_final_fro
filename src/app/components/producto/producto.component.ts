@@ -40,6 +40,7 @@ export class ProductoComponent implements OnInit {
 
     if (!cliente) {
       console.error('Error: Cliente no autenticado');
+      window.alert('No se agrego tu producto porque tienes que iniciar sesion');
       return;
     }
 
@@ -59,6 +60,7 @@ export class ProductoComponent implements OnInit {
       (response) => {
         const detalleCreado: DetalleFactura = response;
         console.log('Detalle agregado al carrito:', detalleCreado);
+        window.alert('Producto agregado al carrito exitosamente.');
       },
       (error) => {
         console.error('Error al agregar al carrito:', error);

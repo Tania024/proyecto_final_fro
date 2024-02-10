@@ -11,6 +11,7 @@ nav {
 
 .logo-container img {
   width: 100px;
+  
 }
 
 nav a {
@@ -25,6 +26,16 @@ nav a {
 nav a:nth-last-child(-n+3) {
   margin-left: auto;
 }
+
+
+
+/* menu.component.css */
+.disabled {
+  opacity: 0.5; /* Puedes ajustar la opacidad según tus preferencias */
+  cursor: not-allowed;
+  pointer-events: none; /* Esto evita que se interactúe con los elementos deshabilitados */
+}
+
 
 
 

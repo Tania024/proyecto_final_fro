@@ -1,4 +1,4 @@
- //import { CabeceraFactura } from "./CabeceraFactura";
+import { CabeceraFactura } from "./CabeceraFactura";
 import { Producto } from "./Producto";
 import { Cliente } from "./Cliente";
 
@@ -9,6 +9,7 @@ export class DetalleFactura {
     public det_subtotal?: number;
     public producto?: Producto | null;
     public cliente?: Cliente | null;
+    public cabeceraFactura?: CabeceraFactura | null;
 }
 
 

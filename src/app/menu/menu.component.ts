@@ -15,5 +15,15 @@ export class MenuComponent {
     // {titulo: 'Detalle Factura', path: 'paginas/detalle-factura'},
 
   ]
+  // carritoHabilitado: boolean = false;
+  // productoHabilitado: boolean = false;
+
+  // toggleCarrito(): void {
+  //   this.carritoHabilitado = !this.carritoHabilitado;
+  // }
+
+  // toggleProducto(): void {
+  //   this.productoHabilitado = !this.productoHabilitado;
+  // }
 
 }

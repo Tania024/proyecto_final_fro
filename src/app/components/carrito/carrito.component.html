@@ -1,5 +1,6 @@
 <!-- carrito.component.html -->
-<div class="logo-container">
+<section id="contenido">
+<div class="portada-container">
     <img src="assets/portada.jpeg" alt="Logo de la aplicación">
     <div class="logo-text">Carrito</div>
 </div>
@@ -32,3 +33,11 @@
 </div>
 
 <div *ngIf="detallesFactura.length === 0" class="no-detalle-message">No hay detalles de factura registrados.</div>
+
+
+
+<div class="pay-button" (click)="pagar()">Pagar</div>
+
+</section>
+
+
