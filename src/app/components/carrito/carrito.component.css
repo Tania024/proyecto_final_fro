@@ -91,20 +91,20 @@
 
 .pay-button {
   display: inline-block;
-  padding: 10px 20px;
+  padding: 10px;
   font-size: 16px;
   font-weight: bold;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
-  border: 2px solid #3498db; /* Cambia el color del borde según tus preferencias */
+  border: none;
   border-radius: 5px;
-  color: #3498db; /* Cambia el color del texto según tus preferencias */
-  background-color: #fff; /* Cambia el color de fondo según tus preferencias */
+  color: white;
+  background-color: #007BFF;
   transition: background-color 0.3s, color 0.3s;
+  
 }
 
 .pay-button:hover {
-  background-color: #3498db; /* Cambia el color de fondo al pasar el mouse */
-  color: #fff; /* Cambia el color del texto al pasar el mouse */
+  background-color: #0056b3;
 }

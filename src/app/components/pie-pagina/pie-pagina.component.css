@@ -1,0 +1,51 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+footer {
+    background-color: #7b6969;
+    color: #151414;
+    padding: 20px 0;
+}
+
+.contenido {
+    display: flex;
+    justify-content: space-around;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.nosotros,
+.contacto,
+.redes-sociales,
+.autores {
+    flex: 1;
+    padding: 0 20px;
+}
+
+.redes-sociales img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 10px;
+    background-color: #7b6969;
+}
+
+.footer-bottom p {
+    margin: 0;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+
+.nosotros h2,
+.redes-sociales h2,
+.contacto h2,
+.autores h2 {
+    color: #ffffff;
+}

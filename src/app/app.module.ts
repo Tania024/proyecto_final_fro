@@ -11,6 +11,7 @@ import { RegistrarseComponent } from './login/registrarse/registrarse.component'
 import { IniciarSesionComponent } from './login/iniciar-sesion/iniciar-sesion.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { PiePaginaComponent } from './components/pie-pagina/pie-pagina.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { FormsModule } from '@angular/forms';
     CarritoComponent,
     InicioComponent,
     RegistrarseComponent,
-    IniciarSesionComponent
+    IniciarSesionComponent,
+    PiePaginaComponent
   ],
   imports: [
     BrowserModule,
