@@ -1,10 +1,8 @@
-// carrito.component.ts
-
 import { Component, OnInit } from '@angular/core';
 import { DetalleFactura } from 'src/app/domain/DetalleFactura';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { DetallefacturaService } from 'src/app/services/detallefactura.service';
-import { CabecerafacturaService } from 'src/app/services/cabecerafactura.service'; // Importa tu servicio de cabecera
+import { CabecerafacturaService } from 'src/app/services/cabecerafactura.service'; 
 
 @Component({
   selector: 'app-carrito',
@@ -13,6 +11,7 @@ import { CabecerafacturaService } from 'src/app/services/cabecerafactura.service
 })
 export class CarritoComponent implements OnInit {
   detallesFactura: DetalleFactura[] = [];
+  cabecerasFactura: any[] = [];
 
   constructor(
     private detalleFacturaService: DetallefacturaService,
@@ -64,26 +63,40 @@ export class CarritoComponent implements OnInit {
 
   pagar(): void {
     const cliente = this.clienteService.getClienteActual();
-
+  
     if (cliente && cliente.cli_codigo !== undefined) {
-      const nuevaCabecera = {
+      // Lógica para asignar la cabecera a los detalles automáticamente
+      this.detallesFactura.forEach(detalle => {
+        if (!detalle.cabeceraFactura) {
+          detalle.cabeceraFactura = {
+            cab_fecha: new Date(),
+            cab_iva: 12,
+            cab_subtotal: 0,
+            cab_total: 0,
+            cliente: cliente,
+            detalles: [detalle]  // Detalle asignado a la nueva cabecera
+          };
+        }
+      });
+  
+      // Crear la cabecera con detalles
+      this.cabeceraFacturaService.crearCabeceraConDetalles({
         cab_fecha: new Date(),
         cab_iva: 12,
         cab_subtotal: 0,
         cab_total: 0,
         cliente: cliente,
         detalles: this.detallesFactura
-      };
-
-      this.cabeceraFacturaService.crearCabeceraConDetalles(nuevaCabecera).subscribe(
-        (cabeceraCreada) => {
-          console.log('Cabecera creada correctamente:', cabeceraCreada);
-          this.actualizarDetalles();
-        },
-        (error) => {
-          console.error('Error al crear la cabecera:', error);
-        }
-      );
+      })
+        .subscribe(
+          (cabeceraCreada) => {
+            console.log('Cabecera creada correctamente:', cabeceraCreada);
+            this.actualizarDetalles();
+          },
+          (error) => {
+            console.error('Error al crear la cabecera:', error);
+          }
+        );
     } else {
       console.error('Error: Cliente no autenticado o código de cliente no disponible');
     }

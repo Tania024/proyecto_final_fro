@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CabecerafacturaService {
-  private apiUrl = 'http://localhost:8080/proyecto_final/rs/cabeceraFacturas'; // Reemplaza con la URL de tu backend
+  private apiUrl = 'http://localhost:8080/proyecto_final/rs/cabeceraFacturas'; 
 
   constructor(private http: HttpClient) { }
 
@@ -31,7 +31,13 @@ export class CabecerafacturaService {
     return this.http.get<CabeceraFactura[]>(`${this.apiUrl}/list`);
   }
 
-  crearCabeceraConDetalles(cabeceraFactura: CabeceraFactura): Observable<CabeceraFactura> {
-    return this.http.post<CabeceraFactura>(`${this.apiUrl}/crear-con-detalles`, cabeceraFactura);
+  // crearCabeceraConDetalles(cabeceraFactura: CabeceraFactura): Observable<CabeceraFactura> {
+  //   return this.http.post<CabeceraFactura>(`${this.apiUrl}/crear-con-detalles`, cabeceraFactura);
+  // }
+
+  
+
+  crearCabeceraConDetalles(cabecera: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, cabecera);
   }
 }

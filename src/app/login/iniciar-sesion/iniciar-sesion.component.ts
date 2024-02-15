@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { Cliente } from 'src/app/domain/Cliente';
 import { ClienteService } from 'src/app/services/cliente.service';
 
@@ -25,6 +26,7 @@ export class IniciarSesionComponent implements OnInit {
             // Almacena el cliente actual en el servicio
             this.clienteService.setClienteActual(cliente);
             this.router.navigate(['components/inicio']);
+            alert('Credenciales correctas');
           } else {
             console.error('Credenciales incorrectas');
             alert('Credenciales incorrectas');

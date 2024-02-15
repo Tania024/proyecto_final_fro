@@ -13,7 +13,8 @@ import { ClienteService } from 'src/app/services/cliente.service';
 export class ProductoComponent implements OnInit {
   productos: Producto[] = [];
   cantidadInput: number = 1;
-
+  codigoInput: string = '';
+  
   constructor(
     private productoService: ProductoService,
     private detalleFacturaService: DetallefacturaService,
@@ -67,4 +68,34 @@ export class ProductoComponent implements OnInit {
       }
     );
   }
+
+  buscarPorCodigo(): void {
+    if (this.codigoInput.trim() !== '') {
+      const codigo = parseInt(this.codigoInput);
+  
+      if (!isNaN(codigo)) {
+        this.productoService.getProductoPorCodigo(codigo).subscribe(
+          (producto) => {
+            this.productos = producto ? [producto] : [];
+          },
+          (error) => {
+            console.error('Error al buscar producto por código:', error);
+          }
+        );
+      } else {
+        console.error('Código no válido');
+        this.productos = []; // Limpiar la lista si el código no es válido
+      }
+    } else {
+      console.error('Código vacío');
+      this.productos = []; // Limpiar la lista si el código está vacío
+    }
+  }
+
+  mostrarTodosProductos(): void {
+    this.cargarProductos(); // Utiliza la función cargarProductos existente
+    this.codigoInput = ''; // Limpia el campo de búsqueda
+  }
+  
+  
 }

@@ -1,43 +1,65 @@
 <!-- carrito.component.html -->
 <section id="contenido">
-<div class="portada-container">
-    <img src="assets/portada.jpeg" alt="Logo de la aplicación">
-    <div class="logo-text">Carrito</div>
-</div>
-
-<div class="table-container">
-    <div class="table-header">
+    <div class="portada-container">
+      <img src="assets/portada.jpeg" alt="Logo de la aplicación">
+      <div class="logo-text">Carrito</div>
+    </div>
+  
+    <div class="table-container">
+      <div class="table-header">
         <div class="table-cell">Código</div>
         <div class="table-cell">Cantidad</div>
         <div class="table-cell">Producto</div>
         <div class="table-cell">Precio Unitario</div>
         <div class="table-cell">Subtotal</div>
         <div class="table-cell">Eliminar</div>
-    </div>
-
-    <div *ngFor="let detalle of detallesFactura" class="table-row">
+      </div>
+  
+      <div *ngFor="let detalle of detallesFactura" class="table-row">
         <div class="table-cell">{{ detalle?.det_codigo !== undefined ? detalle.det_codigo : '' }}</div>
         <div class="table-cell">{{ detalle?.det_cantidad || '' }}</div>
-
+  
         <div class="table-cell">
-            <ng-container *ngIf="detalle?.producto">
-                <img *ngIf="detalle.producto?.pro_imagen" [src]="detalle.producto?.pro_imagen" alt="Imagen del producto">
-                {{ detalle.producto?.pro_nombre || 'Nombre no disponible' }}
-            </ng-container>
+          <ng-container *ngIf="detalle?.producto">
+            <img *ngIf="detalle.producto?.pro_imagen" [src]="detalle.producto?.pro_imagen" alt="Imagen del producto">
+            {{ detalle.producto?.pro_nombre || 'Nombre no disponible' }}
+          </ng-container>
         </div>
-
+  
         <div class="table-cell">{{ detalle?.det_precio | currency:'USD':'symbol':'1.2-2' || '' }}</div>
         <div class="table-cell">{{ detalle?.det_subtotal | currency:'USD':'symbol':'1.2-2' || '' }}</div>
         <div class="table-cell eliminar-button" (click)="eliminarDetalle(detalle?.det_codigo)">Eliminar</div>
+      </div>
     </div>
+  
+    <div *ngIf="detallesFactura.length === 0" class="no-detalle-message">No hay detalles de factura registrados.</div>
+  
+    <div class="pay-button" (click)="pagar()">Pagar</div>
+
+    <!-- Mostrar cabeceras de factura -->
+<div *ngIf="cabecerasFactura.length > 0">
+  <div class="cabecera-factura">
+    <h3>Cabeceras de Factura:</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Fecha</th>
+          <th>Subtotal</th>
+          <th>IVA</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cabecera of cabecerasFactura">
+          <td>{{ cabecera.cab_codigo }}</td>
+          <td>{{ cabecera.cab_fecha ? (cabecera.cab_fecha | date:'short') : 'Fecha no disponible' }}</td>
+          <td>{{ cabecera.cab_subtotal | currency:'USD':'symbol':'1.2-2' || '' }}</td>
+          <td>{{ cabecera.cab_iva | currency:'USD':'symbol':'1.2-2' || '' }}</td>
+          <td>{{ cabecera.cab_total | currency:'USD':'symbol':'1.2-2' || '' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
-
-<div *ngIf="detallesFactura.length === 0" class="no-detalle-message">No hay detalles de factura registrados.</div>
-
-
-
-<div class="pay-button" (click)="pagar()">Pagar</div>
-
 </section>
-
-
