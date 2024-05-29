@@ -3,6 +3,7 @@ import { DetalleFactura } from 'src/app/domain/DetalleFactura';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { DetallefacturaService } from 'src/app/services/detallefactura.service';
 import { CabecerafacturaService } from 'src/app/services/cabecerafactura.service'; 
+import { CabeceraFactura } from 'src/app/domain/CabeceraFactura';
 
 @Component({
   selector: 'app-carrito',
@@ -11,7 +12,8 @@ import { CabecerafacturaService } from 'src/app/services/cabecerafactura.service
 })
 export class CarritoComponent implements OnInit {
   detallesFactura: DetalleFactura[] = [];
-  cabecerasFactura: any[] = [];
+  cabecerasFactura: CabeceraFactura[] = [];
+
 
   constructor(
     private detalleFacturaService: DetallefacturaService,
@@ -21,6 +23,7 @@ export class CarritoComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarDetallesFactura();
+    this.mostrarCabeceras();
   }
 
   eliminarDetalle(detalleId: number | undefined): void {
@@ -65,40 +68,47 @@ export class CarritoComponent implements OnInit {
     const cliente = this.clienteService.getClienteActual();
   
     if (cliente && cliente.cli_codigo !== undefined) {
-      // Lógica para asignar la cabecera a los detalles automáticamente
-      this.detallesFactura.forEach(detalle => {
-        if (!detalle.cabeceraFactura) {
-          detalle.cabeceraFactura = {
-            cab_fecha: new Date(),
-            cab_iva: 12,
-            cab_subtotal: 0,
-            cab_total: 0,
-            cliente: cliente,
-            detalles: [detalle]  // Detalle asignado a la nueva cabecera
-          };
-        }
-      });
-  
       // Crear la cabecera con detalles
-      this.cabeceraFacturaService.crearCabeceraConDetalles({
+      const nuevaCabecera = {
         cab_fecha: new Date(),
         cab_iva: 12,
         cab_subtotal: 0,
         cab_total: 0,
         cliente: cliente,
         detalles: this.detallesFactura
-      })
-        .subscribe(
-          (cabeceraCreada) => {
-            console.log('Cabecera creada correctamente:', cabeceraCreada);
-            this.actualizarDetalles();
-          },
-          (error) => {
-            console.error('Error al crear la cabecera:', error);
-          }
-        );
-    } else {
-      console.error('Error: Cliente no autenticado o código de cliente no disponible');
+      };
+  
+      this.cabeceraFacturaService.crearCabeceraConDetalles(nuevaCabecera)
+  .subscribe(
+    (cabeceraCreada) => {
+      console.log('Cabecera creada correctamente:', cabeceraCreada);
+      this.actualizarDetalles();
+    },
+    (error) => {
+      console.error('Error al crear la cabecera:', error);
+      // Manejar el error aquí (por ejemplo, mostrar un mensaje al usuario)
     }
+  );
+}
+}
+
+
+mostrarCabeceras(): void {
+  const cliente = this.clienteService.getClienteActual();
+
+  if (cliente && cliente.cli_codigo !== undefined) {
+    // Modifica la suscripción para manejar un objeto CabeceraFactura en lugar de un arreglo
+    this.cabeceraFacturaService.obtenerCabeceraFactura(cliente.cli_codigo)
+      .subscribe(
+        (cabecera: CabeceraFactura) => {
+          this.cabecerasFactura = [cabecera]; // Convierte el objeto en un arreglo
+        },
+        (error) => {
+          console.error('Error al obtener la cabecera de factura', error);
+        }
+      );
+  } else {
+    console.error('Error: Cliente no autenticado o código de cliente no disponible');
   }
+}
 }
